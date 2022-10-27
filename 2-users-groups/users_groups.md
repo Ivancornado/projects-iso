@@ -1,23 +1,30 @@
 # Usuarios, grupos, `etc/passwd` e `etc/shadow`
 
 **Índice**
-  - [Fichero /etc/passwd](#fichero-etcpasswd)
-    - [¿Qué es el fichero /etc/passwd?](#qué-es-el-fichero-etcpasswd)
-    - [Formato del archivo](#formato-del-archivo)
+- [Usuarios, grupos, `etc/passwd` e `etc/shadow`](#usuarios-grupos-etcpasswd-e-etcshadow)
+  - [1. Fichero /etc/passwd](#1-fichero-etcpasswd)
+    - [1.1 ¿Qué es el fichero /etc/passwd?](#11-qué-es-el-fichero-etcpasswd)
+    - [1.2 Formato del archivo](#12-formato-del-archivo)
+    - [1.3 Relacion con el comando `chsh -s`](#13-relacion-con-el-comando-chsh--s)
+      - [1.3.1 ¿Qué és?](#131-qué-és)
+  - [2. Fichero /etc/shadow](#2-fichero-etcshadow)
+    - [2.1 ¿Que és el fichero /etc/shadow?](#21-que-és-el-fichero-etcshadow)
+    - [2.2 Formato del archivo](#22-formato-del-archivo)
+    - [2.3 Relacion con el comando chsh](#23-relacion-con-el-comando-chsh)
 
 
 
-## Fichero /etc/passwd
+## 1. Fichero /etc/passwd
 
 
-### ¿Qué es el fichero /etc/passwd?
+### 1.1 ¿Qué es el fichero /etc/passwd?
 Este fichero almacena información esencial, que se requiere durante el inicio de sesión en linux. En otras palabras, almacena información de la cuenta del usuario. /etc/passwd es un archivo de texto sin formato. Contiene una lista de las cuentas del sistema, que proporciona información útil para cada cuenta, como ID de usuario, ID de grupo, directorio de inicio, shell y más.
 
 El archivo /etc/passwd debe tener permiso de lectura general, ya que muchas utilidades de comando lo usan para asignar ID de usuario a nombres de usuario. Sin embargo, el acceso de escritura a /etc/passwd solo debe limitarse para la cuenta de superuser/root. 
 
-### Formato del archivo
+### 1.2 Formato del archivo
 
-Contiene una entrada por línea para cada usuario (cuenta de usuario) del sistema. Todos los campos están separados por un (:). Total de siete campos de la siguiente manera.
+Contiene una entrada por línea para cada usuario (cuenta de usuario) del sistema. Todos los campos están separados por un. Total de siete campos de la siguiente manera.
 
 
 **Nombre de usuario:** se utiliza cuando el usuario inicia sesión. Debe tener entre 1 y 32 caracteres de longitud.
@@ -33,9 +40,9 @@ Directorio de inicio: la ruta absoluta al directorio en el que estará el usuari
 
 **Comando/shell:** la ruta absoluta de un comando o shell (/bin/bash). Típicamente, esto es un caparazón. Tenga en cuenta que no tiene que ser un shell
 
-### Relacion con el comando `chsh -s`
+### 1.3 Relacion con el comando `chsh -s`
 
-#### ¿Qué és?
+#### 1.3.1 ¿Qué és?
 
 El comando `chsh -s` se utiliza para cambiar el shell predeterminado, que por defecto suele ser bash, a, por ejemplo fish, como shell predeterminada, el cual, marca el fichero/ec/passwd, y al cambiarlo, cambia al usar el comando.
 
@@ -49,3 +56,40 @@ Un ejemplo del comando seria:
 ```sh
 chsh -s /usr/bin/fish
 ```
+
+## 2. Fichero /etc/shadow
+
+### 2.1 ¿Que és el fichero /etc/shadow?
+
+Originalmente, la contraseña cifrada se almacenaba en /etc/passwd que tenía que ser legible en todo el mundo para que el sistema pudiera asignar los ID de usuario a los nombres de usuario, y para que los usuarios pudieran encontrar información sobre los demás y luego la gente se diera cuenta de que se trataba de un problema de seguridad. Entonces un nuevo archivo /etc/shadow fue creado para almacenar la contraseña encriptada que es legible solo por root y también contiene otra información que el /etc/passwd. El archivo no se admite en relación con la cuenta y la contraseña del usuario, por ejemplo, cuándo se cambió la contraseña por última vez y cuándo caducará. Este archivo oculta los hash a los usuarios normales del sistema y los mantiene disponibles para fines de autenticación de usuarios.
+
+En Linux, cuando crea un usuario (utilizando el comando useradd), la información de la cuenta, como el nombre de usuario, UID, GID, etc., se almacena en un archivo del sistema / etc / passwd y la información de la cuenta segura, como la contraseña cifrada, la última modificación, la fecha de caducidad, etc. almacenado en otro archivo llamado / etc / shadow.
+
+Cada usuario del sistema tendrá una entrada en el archivo / etc / shadow. Hay 8 campos por línea, cada uno separado por «dos puntos:». Una entrada de muestra es la siguiente.
+
+
+
+### 2.2 Formato del archivo
+
+
+**Nombre de usuario o inicio de sesión:** Este primer campo denota el nombre de usuario que debe usarse al iniciar sesión en el sistema.
+
+**Contraseña:** El segundo campo almacena la contraseña en formato cifrado. la $ xx $ inicial$ 6 $ para el ejemplo anterior) justo después del primer campo (raíz:) indica el tipo de cifrado. Como se señaló anteriormente, el asterisco * significa que esta cuenta no se puede utilizar para iniciar sesión y el !! significa que el usuario no tiene contraseña, por lo que ha sido creado sin contraseña.
+
+**Fecha del último cambio de contraseña (último cambio):** El tercer campo indica la fecha del último cambio de contraseña, expresada como el número de días desde el 1 de enero de 1970. El valor 0 significa que el usuario debe cambiar su contraseña la próxima vez que inicie sesión en el sistema.
+
+**Días mínimos:** Este cuarto campo almacena el número mínimo de días después de los cuales un usuario puede cambiar su contraseña. No podrá cambiar la contraseña antes de eso.
+
+**Días máximos:** Este quinto campo indica el número máximo de días que la contraseña es válida. Después de eso, el usuario se ve obligado a cambiar su contraseña.
+
+**Período de advertencia de la contraseña:** El sexto campo indica el número de días antes de los cuales el usuario recibirá una notificación de advertencia sobre la caducidad de la contraseña y debe cambiarse.
+
+**Periodo de inactividad:** El séptimo campo indica el número de días después de la expiración de la contraseña después de los cuales se deshabilitará la cuenta. Cuando está vacío, este campo indica que no hay cumplimiento de un período de inactividad.
+
+**Fecha de caducidad:** El octavo campo indica los días desde el 1 de enero de 1970 en que la cuenta está deshabilitada.
+Reservado: el noveno campo está reservado para uso futuro.
+
+### 2.3 Relacion con el comando chsh 
+
+No tiene ninguna relacion con el archivo, ya que el comando `chsh` solo afecta al archivo `/etc/passwd`, por lo tanto tampoco puedo poner ningun tipo de ejemplo.
+
