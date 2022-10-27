@@ -1,8 +1,6 @@
 # Usuarios, grupos, `etc/passwd` e `etc/shadow`
 
 **Índice**
-
-- [Usuarios, grupos, `etc/passwd` e `etc/shadow`](#usuarios-grupos-etcpasswd-e-etcshadow)
   - [Fichero /etc/passwd](#fichero-etcpasswd)
     - [¿Qué es el fichero /etc/passwd?](#qué-es-el-fichero-etcpasswd)
     - [Formato del archivo](#formato-del-archivo)
@@ -34,3 +32,20 @@ Contiene una entrada por línea para cada usuario (cuenta de usuario) del sistem
 Directorio de inicio: la ruta absoluta al directorio en el que estará el usuario cuando inicie sesión. Si este directorio no existe, el directorio de usuarios se convierte en /.
 
 **Comando/shell:** la ruta absoluta de un comando o shell (/bin/bash). Típicamente, esto es un caparazón. Tenga en cuenta que no tiene que ser un shell
+
+### Relacion con el comando `chsh -s`
+
+#### ¿Qué és?
+
+El comando `chsh -s` se utiliza para cambiar el shell predeterminado, que por defecto suele ser bash, a, por ejemplo fish, como shell predeterminada, el cual, marca el fichero/ec/passwd, y al cambiarlo, cambia al usar el comando.
+
+Su sintaxis es:
+```sh
+chsh -s (para marcar que vas a cambiar la consola del propio usuario) /usr/bin/(nombre del shell que estableceras)
+```
+
+Un ejemplo del comando seria:
+
+```sh
+chsh -s /usr/bin/fish
+```
