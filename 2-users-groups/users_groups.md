@@ -1,11 +1,10 @@
 # Usuarios, grupos, `etc/passwd` y `etc/shadow`
-
-**Índice**
+- [Usuarios, grupos, `etc/passwd` y `etc/shadow`](#usuarios-grupos-etcpasswd-y-etcshadow)
   - [1. Fichero /etc/passwd](#1-fichero-etcpasswd)
     - [1.1 ¿Qué es el fichero /etc/passwd?](#11-qué-es-el-fichero-etcpasswd)
     - [1.2 Formato del archivo](#12-formato-del-archivo)
     - [1.3 Relacion con el comando `chsh -s`](#13-relacion-con-el-comando-chsh--s)
-      - [1.3.1 ¿Qué és chsh?](#131-qué-és-chsh)
+      - [1.3.1 ¿Qué és `chsh`?](#131-qué-és-chsh)
   - [2. Fichero /etc/shadow](#2-fichero-etcshadow)
     - [2.1 ¿Que és el fichero /etc/shadow?](#21-que-és-el-fichero-etcshadow)
     - [2.2 Formato del archivo](#22-formato-del-archivo)
