@@ -1,14 +1,15 @@
-# Usuarios, grupos, `etc/passwd` y `etc/shadow`
-- [Usuarios, grupos, `etc/passwd` y `etc/shadow`](#usuarios-grupos-etcpasswd-y-etcshadow)
-  - [1. Fichero /etc/passwd](#1-fichero-etcpasswd)
-    - [1.1 ¿Qué es el fichero /etc/passwd?](#11-qué-es-el-fichero-etcpasswd)
-    - [1.2 Formato del archivo](#12-formato-del-archivo)
-    - [1.3 Relacion con el comando `chsh -s`](#13-relacion-con-el-comando-chsh--s)
-      - [1.3.1 ¿Qué és `chsh`?](#131-qué-és-chsh)
-  - [2. Fichero /etc/shadow](#2-fichero-etcshadow)
-    - [2.1 ¿Que és el fichero /etc/shadow?](#21-que-és-el-fichero-etcshadow)
-    - [2.2 Formato del archivo](#22-formato-del-archivo)
-    - [2.3 Relacion con el comando chsh](#23-relacion-con-el-comando-chsh)
+# Usuarios, grupos, `/etc/passwd` y `/etc/shadow`
+- [1. Fichero /etc/passwd](#1-fichero-etcpasswd)
+  - [1.1 ¿Qué es el fichero /etc/passwd?](#11-qué-es-el-fichero-etcpasswd)
+  - [1.2 Formato del archivo](#12-formato-del-archivo)
+  - [1.3 Relacion con el comando `chsh -s`](#13-relacion-con-el-comando-chsh--s)
+    - [1.3.1 ¿Qué és `chsh`?](#131-qué-és-chsh)
+- [2. Fichero /etc/shadow](#2-fichero-etcshadow)
+  - [2.1 ¿Que és el fichero /etc/shadow?](#21-que-és-el-fichero-etcshadow)
+  - [2.2 Formato del archivo](#22-formato-del-archivo)
+  - [2.3 Relacion con el comando chsh](#23-relacion-con-el-comando-chsh)
+- [3. Comando useradd](#3-comando-useradd)
+  - [3.1 ¿Que es?](#31-que-es)
 
 
 
@@ -90,4 +91,21 @@ Reservado: el noveno campo está reservado para uso futuro.
 ### 2.3 Relacion con el comando chsh 
 
 No tiene ninguna relacion con el archivo, ya que el comando `chsh` solo afecta al archivo `/etc/passwd`, por lo tanto tampoco puedo poner ningun tipo de ejemplo.
+
+## 3. Comando useradd
+
+### 3.1 ¿Que es?
+
+Es un comando que se utiliza para crear cuentas de usuarios en linux. Estas cuentas se configuran por medio de parametros:
+
+```sh
+Nombre de la cuenta
+Id de usuario
+Id de grupo
+Nombre de la persona o servicio
+Directorio personal o home
+Shell a usar
+```
+
+
 
