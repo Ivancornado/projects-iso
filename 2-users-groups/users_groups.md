@@ -15,6 +15,7 @@
   - [4. Comando adduser](#4-comando-adduser)
     - [4.1 ¿Que és?](#41-que-és)
     - [4.2 Funcionamiento](#42-funcionamiento)
+  - [5. Comando userdel](#5-comando-userdel)
 
 
 
@@ -132,7 +133,7 @@ Con esto creamos su home en `/home` y establecemos su terminal en bash, pero no 
 sudo passwd depruebas
 ```
 
-Asi estableceremos la contraseña para nuestro usuario.
+Asi estableceremos la contraseña para nuestro usuario, lo cual hara ue se guarde en el fichero `/etc/shadow` de forma cifrada
 
 ![despues del useradd](./img/ls-despues-user.png)
 
@@ -159,3 +160,20 @@ sudo adduser userprueba --shell /bin/sh
 ![passwd despues de useradd](./img/le-passwd-adduser.png)
 
 ![shadow despues de useradd](./img/ls-shadow-adduser.png)
+
+## 5. Comando userdel
+Este comando nos permite eliminar usuarios, siempre y cuando tengamos permisos de root, su sintaxis es la siguiente:
+
+```sh
+userdel [OPTIONS] USERNAME
+```
+
+Entre las opciones que contiene esete comando, cabe destacar:
+
+  **-r**: este elimina al usuario, pero no sus archivos
+  **-f**: este indica al comando que fuerce la eliminacion del usuario
+
+![antes de eliminacion de depruebas]()
+![despues de eliminacion de depruebas]()
+![que paso en /etc/passwd]()
+![que paso en /etc/shadow]()
