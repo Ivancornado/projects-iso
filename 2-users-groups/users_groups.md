@@ -12,6 +12,9 @@
   - [3. Comando useradd](#3-comando-useradd)
     - [3.1 ¿Que es?](#31-que-es)
     - [3.2 Funcionamiento](#32-funcionamiento)
+  - [4. Comando adduser](#4-comando-adduser)
+    - [4.1 ¿Que és?](#41-que-és)
+    - [4.2 Funcionamiento](#42-funcionamiento)
 
 
 
@@ -136,3 +139,23 @@ Asi estableceremos la contraseña para nuestro usuario.
 ![cambios es el passwd](./img/fichero-etc-passwd.png)
 
 ![cambios el el shadow](./img/fichero-etc-shadow.png)
+
+## 4. Comando adduser
+### 4.1 ¿Que és?
+
+El comando adduser en Linux se usa para agregar un nuevo usuario a su máquina Linux actual. Este comando le permite modificar las configuraciones del usuario que se va a crear. Es similar al comando useradd en Linux. El comando adduser es mucho más interactivo en comparación con el comando useradd.
+
+### 4.2 Funcionamiento
+![homeantes del useradd](./img/ls-antes-useradd.png)
+Es bastante mas simple que con el useradd, ya que este te ira preguntando los datos, y hara todo mas automaticamente, lo que si, es que deberemos establcerle nosotros el terminal, o meterlo todo junto en el mismo comando:
+```sh
+sudo adduser userprueba --shell /bin/sh
+```
+
+![creacion usuario con adduser](./img/adduser.png)
+
+![home despues de useradd](./img/ls-despues-useradd.png)
+
+![passwd despues de useradd](./img/le-passwd-adduser.png)
+
+![shadow despues de useradd](./img/ls-shadow-adduser.png)
