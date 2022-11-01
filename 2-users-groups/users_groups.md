@@ -1,15 +1,17 @@
 # Usuarios, grupos, `/etc/passwd` y `/etc/shadow`
-- [1. Fichero /etc/passwd](#1-fichero-etcpasswd)
-  - [1.1 ¿Qué es el fichero /etc/passwd?](#11-qué-es-el-fichero-etcpasswd)
-  - [1.2 Formato del archivo](#12-formato-del-archivo)
-  - [1.3 Relacion con el comando `chsh -s`](#13-relacion-con-el-comando-chsh--s)
-    - [1.3.1 ¿Qué és `chsh`?](#131-qué-és-chsh)
-- [2. Fichero /etc/shadow](#2-fichero-etcshadow)
-  - [2.1 ¿Que és el fichero /etc/shadow?](#21-que-és-el-fichero-etcshadow)
-  - [2.2 Formato del archivo](#22-formato-del-archivo)
-  - [2.3 Relacion con el comando chsh](#23-relacion-con-el-comando-chsh)
-- [3. Comando useradd](#3-comando-useradd)
-  - [3.1 ¿Que es?](#31-que-es)
+- [Usuarios, grupos, `/etc/passwd` y `/etc/shadow`](#usuarios-grupos-etcpasswd-y-etcshadow)
+  - [1. Fichero /etc/passwd](#1-fichero-etcpasswd)
+    - [1.1 ¿Qué es el fichero /etc/passwd?](#11-qué-es-el-fichero-etcpasswd)
+    - [1.2 Formato del archivo](#12-formato-del-archivo)
+    - [1.3 Relacion con el comando `chsh -s`](#13-relacion-con-el-comando-chsh--s)
+      - [1.3.1 ¿Qué és `chsh`?](#131-qué-és-chsh)
+  - [2. Fichero /etc/shadow](#2-fichero-etcshadow)
+    - [2.1 ¿Que és el fichero /etc/shadow?](#21-que-és-el-fichero-etcshadow)
+    - [2.2 Formato del archivo](#22-formato-del-archivo)
+    - [2.3 Relacion con el comando chsh](#23-relacion-con-el-comando-chsh)
+  - [3. Comando useradd](#3-comando-useradd)
+    - [3.1 ¿Que es?](#31-que-es)
+    - [3.2 Funcionamiento](#32-funcionamiento)
 
 
 
@@ -107,5 +109,30 @@ Directorio personal o home
 Shell a usar
 ```
 
+### 3.2 Funcionamiento
+![ls antes del useradd](./img/ls-antes-user.png)
+Crear un usuario con `userad` es simple, lo unico que deberemos hacer escribir lo siguiente:
 
+```sh
+sudo useradd nombre_de_usuario
+```
 
+OJO: que así solo creamos el usuario, pero sin contraseña, sin interprete de comandos, sin directorio de usuario, por lo que este metodo no nos vale
+
+Para crear unusuario completo debemos:
+```sh
+sudo useradd -m -d /home/depruebas depruebas -s /bin/bash
+```
+
+Con esto creamos su home en `/home` y establecemos su terminal en bash, pero no tiene contraseña, para ello necesitamos del archivo **passwd** anteriormente mencionado:
+```sh
+sudo passwd depruebas
+```
+
+Asi estableceremos la contraseña para nuestro usuario.
+
+![despues del useradd](./img/ls-despues-user.png)
+
+![cambios es el passwd](./img/fichero-etc-passwd.png)
+
+![cambios el el shadow](./img/fichero-etc-shadow.png)
