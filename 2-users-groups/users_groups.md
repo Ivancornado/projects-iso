@@ -16,6 +16,9 @@
     - [4.1 ¿Que és?](#41-que-és)
     - [4.2 Funcionamiento](#42-funcionamiento)
   - [5. Comando userdel](#5-comando-userdel)
+  - [6. Creacion de *depruebas* con adduser](#6-creacion-de-depruebas-con-adduser)
+  - [7. Eliminacion depruebas con userdel](#7-eliminacion-depruebas-con-userdel)
+  - [8. ¿Que es /etc/skel?](#8-que-es-etcskel)
 
 
 
@@ -171,9 +174,63 @@ userdel [OPTIONS] USERNAME
 Entre las opciones que contiene esete comando, cabe destacar:
 
   **-r**: este elimina al usuario, pero no sus archivos
+
   **-f**: este indica al comando que fuerce la eliminacion del usuario
 
-![antes de eliminacion de depruebas]()
-![despues de eliminacion de depruebas]()
-![que paso en /etc/passwd]()
-![que paso en /etc/shadow]()
+```sh
+userdel -r depruebas
+```
+
+![despues de eliminacion de depruebas](./img/depruebas-eliminado.png)
+
+![que paso en /etc/passwd](./img/passwd-depruebas-eliminado.png)
+
+Veremos que al eliminarlo, desaparecera su configuración deñ archivo
+
+![que paso en /etc/shadow](./img/shadow-depreubas-eliminado.png)
+
+Al eliminarlo su contraseña cifrada no es necesaria, y es por eso que no aparece en el archivo
+
+## 6. Creacion de *depruebas* con adduser
+
+```sh
+ls -l /home
+```
+![Home antes del uso de depruebas](./img/home-adduser-depruebas.png)
+
+```sh
+sudo adduser depruebas --shel /bin/bash
+```
+
+![creacion depruebas con adduser](./img/adduser-depruebas.png)
+
+```sh
+ls -l home
+```
+
+![home despues creacion depruebas adduser](./img/home-depruebas-despues-adduser.png)
+
+## 7. Eliminacion depruebas con userdel
+
+```sh
+ls -l /home
+```
+
+![Antes de la eliminacion](./img/antes-userdel-depruebas.png)
+
+```sh
+sudo userdel -r depruebas
+```
+
+![home despues de eliminacion](./img/despues-userdel-depruebas-2.png)
+
+![passwd](./img/passwd-userdel-2.png)
+
+![shadow](./img/shadow-despues-eliminacion-2.png)
+
+## 8. ¿Que es /etc/skel?
+
+Es bastante simple de configurar y usar. Proporciona una forma de estar seguro de que todos los nuevos usuarios de tu sistema LFS tienen la misma configuración inicial. El directorio /etc/skel es usado por el programa /usr/sbin/useradd.
+
+![contenido de skel](./img/contenido-skel.png)
+
