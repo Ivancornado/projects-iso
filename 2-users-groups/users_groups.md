@@ -19,6 +19,17 @@
   - [6. Creacion de *depruebas* con adduser](#6-creacion-de-depruebas-con-adduser)
   - [7. Eliminacion depruebas con userdel](#7-eliminacion-depruebas-con-userdel)
   - [8. ¿Que es /etc/skel?](#8-que-es-etcskel)
+  - [9. ¿Que es /etc/group?](#9-que-es-etcgroup)
+  - [10. Añadiendo los usuarios a los grupos](#10-añadiendo-los-usuarios-a-los-grupos)
+  - [11. Flags de usermod](#11-flags-de-usermod)
+  - [12. Eliminar usuarios de grupos](#12-eliminar-usuarios-de-grupos)
+  - [13. Eliminacion de grupos](#13-eliminacion-de-grupos)
+  - [14. Comando `chage`](#14-comando-chage)
+  - [14.1 Cambiar validez de contraseña](#141-cambiar-validez-de-contraseña)
+  - [15. Permisos de carpeta](#15-permisos-de-carpeta)
+    - [15.1 Ejemplo](#151-ejemplo)
+  - [16. Cambio de propetario de carpeta o archivo](#16-cambio-de-propetario-de-carpeta-o-archivo)
+    - [16.1 Ejemplo](#161-ejemplo)
 
 
 
@@ -234,3 +245,146 @@ Es bastante simple de configurar y usar. Proporciona una forma de estar seguro d
 
 ![contenido de skel](./img/contenido-skel.png)
 
+## 9. ¿Que es /etc/group?
+
+Contiene los nombres de los grupos y una lisa de los usuarios que pertenecen a cada grupo. Cada línea representa un grupo y contiene 4 campos:
+
+    El nombre del grupo (es recomendable que no tenga más de 8 caracteres).
+    La contraseña cifrada o bien una x que indica la existencia de un archivo gshadow.
+    Le número de GID
+    Lista de los miembros del grupo, separados por comas (sin espacios)
+
+![contenido /etc/group](./img/etc-group-contenido.png)
+
+
+## 10. Añadiendo los usuarios a los grupos
+
+![Creando a los usuarios, el grupo y añadiendolos](./img/usermod-groupadd.png)
+
+![Cambios en /etc/group](./img/etc-group.png)
+
+El cambio que a tenido, a sido la creacion del propio grupo, y los añadidos de los usuarios
+
+![Cambios /etc/passwd](./img/etc-shadow-group.png)
+
+Aparte de la creacion de los usuarios, vemos que estes tienen el grupo `directors`, el cual hemos creado y le hemos añadido a esos tres usuarios
+
+## 11. Flags de usermod
+
+**-a**: es un atajo para --append. Significa agregar el grupo a la lista de grupos a los que pertenece el usuario
+
+**-G**: es un atajo para --groups. le dice a usermod que el siguiente argumento es un grupo. Tener en cuenta que debe usar una -G mayúscula aquí porque no queremos modificar el grupo principal del usuario, sino la lista de grupos complementarios a los que pertenece el usuario.
+
+![Creacion del grupo](./img/group-actresses.png)
+
+Lo primero es crear el grupo, y luego añadir al usuario al grupo
+
+## 12. Eliminar usuarios de grupos
+
+Para eliminar al usuario de uno de esos grupos, puede invocar el comando gpasswd con el –Eliminar bandera seguido por el usuario que se eliminará y el grupo.
+
+```sh
+sudo gpasswd --delete [nombre usuario] [nombre grupo]
+```
+
+Unos ejemplos serian:
+
+```sh
+sudo gpasswd --delete jean-luc-godard directors
+sudo gpasswd --delete andrei-tarkovsky directors
+```
+![Eliminacionde usuarios](./img/gpasswd-eliminacion.png)
+
+## 13. Eliminacion de grupos
+
+```sh
+sudo groupdel [nombre-grupo]
+```
+
+**Importante:** Este comando verificará que el grupo newbie no es grupo principal de ningún usuario, de lo contrario no se nos permitirá eliminarlo.
+
+**Nota:** Cuando eliminamos un grupo, quizás nos interese saber si existen archivos cuyo grupo principal es el grupo a eliminar.
+
+![Antes eliminacion grupo](./img/antes-eliminacion-grupo.png)
+
+![Despues eliminacon grupo](./img/despues-eliminacion-grupo.png)
+
+## 14. Comando `chage`
+
+El comando chage nos permite configurar el vencimiento de la contraseña de un usuario, así como establecer la caducidad de la cuenta de un usuario. El sistema utiliza esta información para determinar cuándo un usuario debe cambiar su contraseña.
+
+Para ver toda la informacion de la contraseña de un usuario es:
+
+```sh
+sudo chage -l juliet-berto
+```
+
+![informacion de contraseña](./img/informacion-contrase%C3%B1a.png)
+
+## 14.1 Cambiar validez de contraseña
+
+Para cambiar la validez es con el comando:
+
+```sh
+sudo chage -m [duracion en dias] -M [duracion en dias] [nombre-usuario]
+```
+![establecer duracion contraseña](./img/duracion-contrase%C3%B1a.png)
+
+
+## 15. Permisos de carpeta
+
+Para establecer permisos a un usuario en una carpeta usamos el comando `chmod`, donde establecemos si puede escribir, leer o ejecutar:
+
+```sh
+sudo chmod [permisos] [documento o carpeta]
+```
+
+**r:** Permiso de lectura (read); también llamado bit R
+
+**w:** Permiso de escritura (write); también llamado bit W
+
+**x:** Permiso de ejecución (execute); también llamado bit X
+
+**Carácter para clases de usuarios:** Significado
+
+**u**: user, propietario
+
+**g:** group, grupo
+
+**o:** other, otros
+
+**a:** all, todas las clases
+
+### 15.1 Ejemplo
+
+Crearemos una carpeta para el ejemplo, empleando el mkdir, y ejecutamos el comando:
+
+```sh
+sudo chmod 666 projects/
+```
+
+Y al hacer un ls -l:
+
+![Permisos](./img/permisos.png)
+
+## 16. Cambio de propetario de carpeta o archivo
+
+```sh
+chown [opciones] nuevo_usuario nombre_de_archivo/directorio
+```
+
+OPCIONES:
+
+**-R:** 	Cambia el permiso en archivos que estén en subdirectorios del directorio en el que estés en ese momento.
+
+**-c:** 	Cambia el permiso para cada archivo.
+
+**-f:** 	Previene a chown de mostrar mensajes de error cuando es incapaz de cambiar la titularidad de un archivo. 
+
+
+### 16.1 Ejemplo
+```sh
+chown -R juliet-berto projects/
+```
+
+![cambio de propietario](./img/propietario.png)
